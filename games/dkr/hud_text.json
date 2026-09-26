@@ -1,0 +1,404 @@
+{
+ "sprites": {
+  "sprites/hud/final.json": {
+   "text": "FINAL"
+  },
+  "sprites/hud/finish.json": {
+   "text": "FINISH"
+  },
+  "sprites/hud/get_ready.json": {
+   "text": "GET READY"
+  },
+  "sprites/hud/go.json": {
+   "text": "GO!"
+  },
+  "sprites/hud/lap_large.json": {
+   "text": "LAP",
+   "style": "gold"
+  },
+  "sprites/hud/wrong.json": {
+   "text": "WRONG"
+  },
+  "sprites/hud/first_place_one.json": {
+   "text": "1",
+   "style": "gold",
+   "weight": 0.14
+  },
+  "sprites/hud/first_place_st.json": {
+   "text": "ST",
+   "style": "gold"
+  },
+  "sprites/hud/place_numbers.json": {
+   "frames": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "style": "gold",
+   "weight": 0.14
+  },
+  "sprites/hud/timer_numbers.json": {
+   "frames": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9"
+   ],
+   "style": "gold",
+   "weight": 0.13
+  },
+  "sprites/hud/timer_numbers_small.json": {
+   "frames": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9"
+   ],
+   "style": "gold",
+   "weight": 0.13
+  },
+  "sprites/hud/weapon_icon_numbers.json": {
+   "frames": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10"
+   ],
+   "kind": "rocket"
+  }
+ },
+ "textures": {
+  "textures/2d/hud/final_small.png": {
+   "text": "FINAL",
+   "style": "word"
+  },
+  "textures/2d/hud/finish_small.png": {
+   "text": "FINISH",
+   "style": "word"
+  },
+  "textures/2d/hud/get_ready_small.png": {
+   "text": "GET READY",
+   "style": "word"
+  },
+  "textures/2d/hud/go_small.png": {
+   "text": "GO!",
+   "style": "word"
+  },
+  "textures/2d/hud/lap.png": {
+   "text": "LAP",
+   "style": "gold"
+  },
+  "textures/2d/hud/lap2.png": {
+   "text": "LAP",
+   "style": "gold"
+  },
+  "textures/2d/hud/lap_small.png": {
+   "text": "LAP",
+   "style": "gold"
+  },
+  "textures/2d/hud/lap2_2.png": {
+   "text": "2",
+   "style": "green",
+   "weight": 0.14
+  },
+  "textures/2d/hud/lap_2_small.png": {
+   "text": "2",
+   "style": "green",
+   "weight": 0.14
+  },
+  "textures/2d/hud/way.png": {
+   "text": "WAY",
+   "style": "word"
+  },
+  "textures/2d/hud/way_small.png": {
+   "text": "WAY",
+   "style": "word"
+  },
+  "textures/2d/hud/wrong_small.png": {
+   "text": "WRONG",
+   "style": "word"
+  },
+  "textures/2d/hud/time.png": {
+   "text": "TIME",
+   "style": "gold"
+  },
+  "textures/2d/hud/time2.png": {
+   "text": "TIME",
+   "style": "gold"
+  },
+  "textures/2d/hud/x.png": {
+   "text": "x",
+   "style": "gold",
+   "pad": 3
+  },
+  "textures/2d/hud/x_small.png": {
+   "text": "x",
+   "style": "gold",
+   "pad": 2
+  },
+  "textures/2d/hud/colon.png": {
+   "text": ":",
+   "style": "gold",
+   "pad": 2
+  },
+  "textures/2d/hud/colon2.png": {
+   "text": ":",
+   "style": "gold",
+   "pad": 2
+  },
+  "textures/2d/hud/colon_small.png": {
+   "text": ":",
+   "style": "gold",
+   "pad": 2
+  },
+  "textures/2d/hud/color_small2.png": {
+   "text": ":",
+   "style": "gold",
+   "pad": 2
+  },
+  "textures/2d/hud/forward_slash.png": {
+   "text": "/",
+   "style": "gold",
+   "pad": 2
+  },
+  "textures/2d/hud/forward_slash2.png": {
+   "text": "/",
+   "style": "gold",
+   "pad": 2
+  },
+  "textures/2d/hud/forward_slash_small.png": {
+   "text": "/",
+   "style": "gold",
+   "pad": 2
+  },
+  "textures/2d/hud/speedometer_0.png": {
+   "text": "0",
+   "style": "green",
+   "pad": 2
+  },
+  "textures/2d/hud/speedometer_30.png": {
+   "text": "30",
+   "style": "green",
+   "pad": 2
+  },
+  "textures/2d/hud/speedometer_60.png": {
+   "text": "60",
+   "style": "yellow",
+   "pad": 2
+  },
+  "textures/2d/hud/speedometer_90.png": {
+   "text": "90",
+   "style": "yellow",
+   "pad": 2
+  },
+  "textures/2d/hud/speedometer_120.png": {
+   "text": "120",
+   "style": "red",
+   "pad": 2
+  },
+  "textures/2d/hud/speedometer_150.png": {
+   "text": "150",
+   "style": "red",
+   "pad": 2
+  },
+  "textures/2d/hud/place_number_suffixes_0.png": {
+   "text": "ST",
+   "style": "gold"
+  },
+  "textures/2d/hud/place_number_suffixes_1.png": {
+   "text": "ND",
+   "style": "gold"
+  },
+  "textures/2d/hud/place_number_suffixes_2.png": {
+   "text": "RD",
+   "style": "gold"
+  },
+  "textures/2d/hud/place_number_suffixes_3.png": {
+   "text": "TH",
+   "style": "gold"
+  },
+  "textures/2d/hud/place_numbers_singletex_0.png": {
+   "text": "1",
+   "style": "gold",
+   "weight": 0.14
+  },
+  "textures/2d/hud/place_numbers_singletex_1.png": {
+   "text": "2",
+   "style": "gold",
+   "weight": 0.14
+  },
+  "textures/2d/hud/place_numbers_singletex_2.png": {
+   "text": "3",
+   "style": "gold",
+   "weight": 0.14
+  },
+  "textures/2d/hud/place_numbers_singletex_3.png": {
+   "text": "4",
+   "style": "gold",
+   "weight": 0.14
+  },
+  "textures/2d/hud/place_numbers_singletex_4.png": {
+   "text": "5",
+   "style": "gold",
+   "weight": 0.14
+  },
+  "textures/2d/hud/place_numbers_singletex_5.png": {
+   "text": "6",
+   "style": "gold",
+   "weight": 0.14
+  },
+  "textures/2d/hud/place_numbers_singletex_6.png": {
+   "text": "7",
+   "style": "gold",
+   "weight": 0.14
+  },
+  "textures/2d/hud/place_numbers_singletex_7.png": {
+   "text": "8",
+   "style": "gold",
+   "weight": 0.14
+  },
+  "textures/2d/hud/timer_numbers_singletex_0.png": {
+   "text": "0",
+   "style": "gold",
+   "pad": 2,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_small_singletex_0.png": {
+   "text": "0",
+   "style": "gold",
+   "pad": 3,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_singletex_1.png": {
+   "text": "1",
+   "style": "gold",
+   "pad": 2,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_small_singletex_1.png": {
+   "text": "1",
+   "style": "gold",
+   "pad": 3,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_singletex_2.png": {
+   "text": "2",
+   "style": "gold",
+   "pad": 2,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_small_singletex_2.png": {
+   "text": "2",
+   "style": "gold",
+   "pad": 3,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_singletex_3.png": {
+   "text": "3",
+   "style": "gold",
+   "pad": 2,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_small_singletex_3.png": {
+   "text": "3",
+   "style": "gold",
+   "pad": 3,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_singletex_4.png": {
+   "text": "4",
+   "style": "gold",
+   "pad": 2,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_small_singletex_4.png": {
+   "text": "4",
+   "style": "gold",
+   "pad": 3,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_singletex_5.png": {
+   "text": "5",
+   "style": "gold",
+   "pad": 2,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_small_singletex_5.png": {
+   "text": "5",
+   "style": "gold",
+   "pad": 3,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_singletex_6.png": {
+   "text": "6",
+   "style": "gold",
+   "pad": 2,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_small_singletex_6.png": {
+   "text": "6",
+   "style": "gold",
+   "pad": 3,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_singletex_7.png": {
+   "text": "7",
+   "style": "gold",
+   "pad": 2,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_small_singletex_7.png": {
+   "text": "7",
+   "style": "gold",
+   "pad": 3,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_singletex_8.png": {
+   "text": "8",
+   "style": "gold",
+   "pad": 2,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_small_singletex_8.png": {
+   "text": "8",
+   "style": "gold",
+   "pad": 3,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_singletex_9.png": {
+   "text": "9",
+   "style": "gold",
+   "pad": 2,
+   "weight": 0.13
+  },
+  "textures/2d/hud/timer_numbers_small_singletex_9.png": {
+   "text": "9",
+   "style": "gold",
+   "pad": 3,
+   "weight": 0.13
+  }
+ }
+}
