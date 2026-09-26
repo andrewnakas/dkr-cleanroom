@@ -4,6 +4,7 @@
 
 #include <math.h>
 #include <SDL2/SDL.h>
+#include <emscripten.h>
 #include <emscripten/html5.h>
 
 #define BTN_A 0x8000
@@ -118,6 +119,16 @@ static void read_pad(unsigned short *buttons, int *sx, int *sy) {
     }
 }
 
+// Touch overlay (web/touchpad.js): N64 button mask and analog stick, set from JS.
+static unsigned short sTouchButtons = 0;
+static int sTouchX = 0, sTouchY = 0;
+
+EMSCRIPTEN_KEEPALIVE void web_touch_input(int buttons, int x, int y) {
+    sTouchButtons = (unsigned short) buttons;
+    sTouchX = x < -STICK_MAX ? -STICK_MAX : (x > STICK_MAX ? STICK_MAX : x);
+    sTouchY = y < -STICK_MAX ? -STICK_MAX : (y > STICK_MAX ? STICK_MAX : y);
+}
+
 void input_host_read(unsigned short *button, signed char *stickX, signed char *stickY) {
     const unsigned char *keys;
     unsigned short buttons = 0;
@@ -148,6 +159,11 @@ void input_host_read(unsigned short *button, signed char *stickX, signed char *s
     if (x == 0 && y == 0) {
         x = px;
         y = py;
+    }
+    buttons |= sTouchButtons;
+    if (x == 0 && y == 0) {
+        x = sTouchX;
+        y = sTouchY;
     }
     *button = buttons;
     *stickX = (signed char) x;

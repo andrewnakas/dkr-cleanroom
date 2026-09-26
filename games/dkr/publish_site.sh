@@ -5,7 +5,7 @@ set -e
 S="$1"; MSG="$2"
 P=/d/n64work/dkr/pages
 rm -rf "$P" && mkdir -p "$P"
-cp "$S"/index.html "$S"/devscript.js "$S"/dkr.js "$S"/dkr.wasm "$S"/dkr.data "$S"/.nojekyll "$P"/
+cp "$S"/index.html "$S"/devscript.js "$S"/touchpad.js "$S"/dkr.js "$S"/dkr.wasm "$S"/dkr.data "$S"/.nojekyll "$P"/
 cd "$P"
 git init -q -b gh-pages
 git add -A
