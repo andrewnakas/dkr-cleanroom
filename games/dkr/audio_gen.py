@@ -60,6 +60,12 @@ def wave_pcm(bank, w, rate, music):
                 f["f0"] = w["f0"]
     n = w["n"]
     x = descriptor.synthesize(desc, n, rate, seed=_seed(bank, w["wave"]))
+    if music and w.get("f0", 0) > 20:
+        # reinforce the fundamental: the outline's bands start at 40 Hz and a weak
+        # fundamental makes low instruments read an octave high
+        t = np.arange(n) / rate
+        env = np.sqrt(np.convolve(np.asarray(x, np.float64) ** 2, np.ones(256) / 256, "same"))
+        x = np.asarray(x, np.float64) + 0.6 * np.sqrt(2) * env * np.sin(2 * np.pi * w["f0"] * t)
     lp = w.get("loop")
     if lp and lp["count"] and lp["end"] <= n and lp["end"] - lp["start"] > 32:
         x = descriptor.make_loop_seamless(x, lp["start"], lp["end"])
@@ -88,7 +94,7 @@ def build_bank(ctl_name, spec_bank, cache_dir=None, spec=None):
     for w in spec_bank["waves"]:
         v = voices.for_wave(spec, ctl_name, w["wave"]) if spec else None
         vkey = hashlib.sha1(v.tobytes()).hexdigest() if v is not None else ""
-        key = hashlib.sha1(json.dumps([ctl_name, MUSIC_CTL, w, vkey], sort_keys=True).encode()).hexdigest()[:16]
+        key = hashlib.sha1(json.dumps([ctl_name, MUSIC_CTL, w, vkey, "fund1" if ctl_name == MUSIC_CTL else ""], sort_keys=True).encode()).hexdigest()[:16]
         cp = os.path.join(cache_dir, key + ".npz") if cache_dir else None
         if cp and os.path.exists(cp):
             z = np.load(cp)

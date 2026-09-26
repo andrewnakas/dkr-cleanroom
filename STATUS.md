@@ -20,7 +20,8 @@ Play: **https://andrewnakas.github.io/dkr-cleanroom/** (repo: andrewnakas/dkr-cl
   (`eyes.py`), weapon icons x3 levels, turn indicators, reticles, speedometer, checkered flag, balloon icons,
   pickups (weapon balloons, bananas, silver coins, eggs, bombs) painted across their multi-strip sprites,
   menu icons (vehicle pictures, option icons, TT on/off, keys, trophies, amulet progress) (`icons.py`, `faces.py`).
-- Audio: every wave resynthesised from its outline; music instruments held at the kept median pitch; our own
+- Audio: every wave resynthesised from its outline; music instruments held at the kept median pitch with a
+  reinforced fundamental (tuning check: 95/113 tonal instruments within 25 cents, 10 read an octave off); our own
   VADPCM books/loop states; banks keep exact sizes and offsets.
 
 ## Decisions (log)
