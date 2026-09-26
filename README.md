@@ -22,7 +22,10 @@ asset from those facts:
 |---|---|---|
 | Textures (2,718 PNGs) | format, size, a 4×4 colour grid (16×16 for ≥128 px), a 2-bit alpha outline | colour from the grid plus our own noise detail |
 | Fonts (4 game fonts, 42 atlases) | glyph cell positions and advance widths (font metadata) | every glyph drawn with our own stroke font in our own styles (`fonts.py`) |
-| HUD / menu text (FINAL LAP, GET READY, GO!, WRONG WAY, TIME, digits, place suffixes, option labels, title logo) | the words; where each strip of a multi-strip sprite sits | re-typeset (`drawn.py`, `hud_text.json`) |
+| HUD / menu text (FINAL LAP, GET READY, GO!, WRONG WAY, TIME, digits, place suffixes, option labels, title logo), track-name signs, START banners | the words; where each strip of a multi-strip sprite sits | re-typeset (`drawn.py`, `hud_text.json`) |
+| Faces and pictures: HUD portraits, eyes and mouths (with blink frames), weapon/menu icons, pickups | kept alpha outline where the texture has one | painted from our own descriptions (`face_briefs.json`, `eyes.py`, `icons.py`) |
+| World surfaces (grass, sand, rock, wood, brick, roof tiles, snow, water, metal) | colour grid, alpha | tileable procedural detail chosen by texture name (`materials.py`) |
+| Character voices (≈300 clips: mumbles, laughs, grunts) | as samples below | resynthesised like every sample; the retail clips are gibberish vocalisations, not words, so there are no TTS lines. `games/dkr/practice.py` builds a personal practice pack for recording your own takes |
 | Samples (677 waves in two banks) | length, rate, loop points, a coarse spectral outline, a median pitch | resynthesised; our own VADPCM codebooks of the same shape; banks keep their exact sizes and offsets |
 | Music | note sequences (user scope: melodies kept) | played by the resynthesised instruments |
 | Geometry, level/object models, animations, text, game tables, time-trial ghosts | kept as facts (user scope) | — |
@@ -51,3 +54,11 @@ python -m games.dkr.make_site clean site
 
 `games/dkr/port_patches.py` lists every source change to the port: WebGL 2 renderer (`web/gfx_web.c`), Gamepad API
 input (`web/input_web.c`), Asyncify frame pacing, localStorage EEPROM saves, two signature fixes wasm needs.
+
+## Notes
+
+- The asset tool is built for Node with two packer changes: level-6 search effort, and no stored deflate
+  blocks (the game's inflater, `src/gzip.c`, mishandles them; retail data never had any). Generated textures
+  are kept compressible because the game inflates them in place (`games/dkr/texcheck.py`).
+- Headless checks: `?script=` in the page URL drives the menus (see `games/dkr/web/devscript.js`); use the
+  hardware GPU for long runs (SwiftShader stalls under load).
