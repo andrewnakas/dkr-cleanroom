@@ -4,7 +4,7 @@ import json
 import os
 import sys
 
-from games.dkr import drawn, fonts
+from games.dkr import drawn, faces, fonts
 from games.dkr.generate import save_png
 
 
@@ -14,6 +14,7 @@ def main(spec, out, filt=""):
     sizes = {k: (v["w"], v["h"]) for k, v in textures.items()}
     items = [(r, i) for r, i in fonts.font_textures(kept, sizes).items()]
     items += [(r, i) for r, i, _ in drawn.all_overrides(kept, textures)]
+    items += [(r, i) for r, i, _ in faces.all_overrides(textures)]
     n = 0
     for rel, img in items:
         if filt and filt not in rel:

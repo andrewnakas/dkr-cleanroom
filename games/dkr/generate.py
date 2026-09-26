@@ -54,6 +54,9 @@ def overrides(spec, textures):
             out[rel] = (img, tag)
     except ImportError:
         pass
+    from games.dkr import faces
+    for rel, img, tag in faces.all_overrides(textures):
+        out[rel] = (img, tag)
     return out
 
 

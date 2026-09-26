@@ -27,6 +27,9 @@ STYLES = {
     "white": ((255, 255, 255), (220, 225, 235), (30, 30, 40), (0, 0, 0)),
     "red": ((255, 110, 80), (220, 20, 20), (80, 0, 0), (10, 0, 0)),
     "yellow": ((255, 255, 120), (255, 200, 30), (140, 60, 0), (10, 5, 0)),
+    "sign": ((255, 250, 110), (255, 190, 20), (190, 20, 20), (20, 0, 40)),
+    "title_red": ((255, 80, 50), (190, 0, 10), (255, 226, 40), (70, 0, 0)),
+    "title_blue": ((70, 120, 255), (40, 215, 90), (255, 226, 40), (0, 20, 60)),
 }
 
 
@@ -125,6 +128,72 @@ def rocket_box(digit, w, h):
     return img
 
 
+def rounded_rect(w, h, r):
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32) + 0.5
+    dx = np.maximum(0, np.maximum(r - xx, xx - (w - r)))
+    dy = np.maximum(0, np.maximum(r - yy, yy - (h - r)))
+    return np.clip(r + 0.5 - np.hypot(dx, dy), 0, 1)
+
+
+def panel(text, w, h, selected=True):
+    """Menu option label: a rounded orange panel with white lettering."""
+    top, bot, edge = ((255, 200, 70), (225, 110, 10), (255, 245, 170)) if selected else         ((180, 105, 40), (120, 55, 10), (80, 35, 0))
+    m = rounded_rect(w, h, min(4, h // 3))
+    inner = np.zeros_like(m)
+    inner[1:-1, 1:-1] = rounded_rect(w - 2, h - 2, min(3, h // 3))
+    t = np.linspace(0, 1, h, dtype=np.float32)[:, None, None]
+    img = np.zeros((h, w, 4), np.float32)
+    img[..., :3] = np.asarray(edge, np.float32)
+    fill = np.asarray(top, np.float32) * (1 - t) + np.asarray(bot, np.float32) * t
+    a = inner[..., None]
+    img[..., :3] = img[..., :3] * (1 - a) + fill * a
+    img[..., 3] = m * 255
+    tw = word_image(text, w - 4, h - 4, "white", pad=1, weight=0.12)
+    ta = tw[..., 3:] / 255.0
+    img[2:-2, 2:-2, :3] = img[2:-2, 2:-2, :3] * (1 - ta) + tw[..., :3] * ta
+    return img
+
+
+def sign(text, w, h, bg=((70, 50, 190), (30, 20, 110)), border=(250, 210, 40), style="sign"):
+    """A framed track/name sign: gradient panel, yellow rim, lettering on one
+    or two lines (split at the middle space when that reads bigger)."""
+    img = np.zeros((h, w, 4), np.float32)
+    t = np.linspace(0, 1, h, dtype=np.float32)[:, None, None]
+    img[..., :3] = np.asarray(bg[0], np.float32) * (1 - t) + np.asarray(bg[1], np.float32) * t
+    img[..., 3] = 255
+    r = max(1, h // 16)
+    for sl in ((slice(0, r), slice(None)), (slice(h - r, h), slice(None)), (slice(None), slice(0, r)), (slice(None), slice(w - r, w))):
+        img[sl[0], sl[1], :3] = border
+    words = text.split(" ")
+    lines = [text]
+    if len(words) > 1 and len(text) * h / 2 > w * 1.1:
+        k = min(range(1, len(words)), key=lambda i: abs(len(" ".join(words[:i])) - len(" ".join(words[i:]))))
+        lines = [" ".join(words[:k]), " ".join(words[k:])]
+    ih, iw = h - 2 * r - 2, w - 2 * r - 2
+    lh = ih // len(lines)
+    for i, line in enumerate(lines):
+        tw = word_image(line, iw, lh, style, pad=1, weight=0.1)
+        a = tw[..., 3:] / 255.0
+        y = r + 1 + i * lh
+        img[y:y + lh, r + 1:r + 1 + iw, :3] = img[y:y + lh, r + 1:r + 1 + iw, :3] * (1 - a) + tw[..., :3] * a
+    return img
+
+
+def title_logo(w=160, h=64):
+    """Our own two-line logo: DIDDY KONG over RACING (a star in the O)."""
+    img = np.zeros((h, w, 4), np.float32)
+    top_h = int(h * 0.52)
+    for text, style, y0, y1, x0, x1 in (("DIDDY KONG", "title_red", 1, top_h, 1, w - 1),
+                                        ("RACING", "title_blue", top_h - 2, h - 1, int(w * 0.16), int(w * 0.84))):
+        m = np.zeros((h, w), np.float32)
+        m[y0 + 2:y1 - 2, x0 + 2:x1 - 2] = text_mask(text, x1 - x0 - 4, y1 - y0 - 4, 0.085)
+        layer = styled(m, style, ow=2, shadow=2)
+        a = layer[..., 3:] / 255.0
+        img[..., :3] = img[..., :3] * (1 - a) + layer[..., :3] * a
+        img[..., 3] = np.maximum(img[..., 3], layer[..., 3])
+    return img
+
+
 def all_overrides(kept, textures):
     sizes = {k: (v["w"], v["h"]) for k, v in textures.items()}
     B = briefs()
@@ -151,7 +220,27 @@ def all_overrides(kept, textures):
         w, h = sizes[rel]
         if b.get("kind") == "rocket":
             img = rocket_box(b["text"], w, h)
+        elif b.get("kind") == "panel":
+            img = panel(b["text"], w, h, b.get("selected", True))
+        elif b.get("kind") == "sign":
+            if "group" in b:                 # one sign spread over several textures, left to right
+                ws = [sizes[g][0] for g in b["group"]]
+                big = sign(b["text"], sum(ws), h, **b.get("args", {}))
+                x = 0
+                for g, gw in zip(b["group"], ws):
+                    out.append((g, big[:, x:x + gw].copy(), "sign"))
+                    x += gw
+                continue
+            img = sign(b["text"], w, h, **b.get("args", {}))
         else:
             img = word_image(b["text"], w, h, b.get("style", "word"), pad=b.get("pad"), weight=b.get("weight", 0.11))
         out.append((rel, img, "hud text"))
+    strips = ["textures/2d/menu/title_%d.png" % i for i in range(10)]
+    if all(r in sizes for r in strips):
+        logo = title_logo(sum(sizes[r][0] for r in strips), sizes[strips[0]][1])
+        x = 0
+        for r in strips:
+            w = sizes[r][0]
+            out.append((r, logo[:, x:x + w].copy(), "title logo"))
+            x += w
     return out

@@ -6,8 +6,14 @@ SRC=/d/n64work/dkr/pristine/tools
 OUT=/d/n64work/dkr/tooljs/obj
 mkdir -p $OUT
 cd $SRC
+# Faster gzip search for level 9 (level-6 settings): clean textures carry noise
+# detail, and a 4096-long chain search on them takes the build from 2 to 30+ min.
+mkdir -p /d/n64work/dkr/tooljs/override
+sed 's#/\* 9 \*/ {32, 258, 258, 4096}#/* 9 */ {8,   16, 128, 128}#' dkr_assets_tool_src/libs/gzip/DKRGzip.c > /d/n64work/dkr/tooljs/override/DKRGzip.c
+grep -q '/\* 9 \*/ {8,   16, 128, 128}' /d/n64work/dkr/tooljs/override/DKRGzip.c || { echo "gzip patch failed"; exit 1; }
+emcc $FL -I dkr_assets_tool_src/libs/gzip -c /d/n64work/dkr/tooljs/override/DKRGzip.c -o $OUT/zz_DKRGzip_fast.o
 FL="-O2 -fexceptions -DPCRE2_CODE_UNIT_WIDTH=8 -DPCRE2_STATIC -I/d/n64work/dkr/tooljs/pcre2-10.44/src -pthread -I . -I dkr_assets_tool_src/ -D__linux__=1"
-find dkr_assets_tool_src -name '*.cpp' -o -name '*.c' | xargs -P 12 -I{} sh -c '
+find dkr_assets_tool_src \( -name '*.cpp' -o -name '*.c' \) ! -name DKRGzip.c | xargs -P 12 -I{} sh -c '
   f={}; o='$OUT'/$(echo $f | tr / _).o
   [ -s $o ] && [ $o -nt $f ] && exit 0
   case $f in *.cpp) em++ -std=c++17 '"$FL"' -c $f -o $o ;; *) emcc '"$FL"' -c $f -o $o ;; esac || echo FAIL $f'

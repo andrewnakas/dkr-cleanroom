@@ -399,6 +399,391 @@
    "style": "gold",
    "pad": 3,
    "weight": 0.13
+  },
+  "textures/2d/menu/label_car_option_selected.png": {
+   "text": "CAR",
+   "kind": "panel",
+   "selected": true
+  },
+  "textures/2d/menu/label_car_option_nonselected.png": {
+   "text": "CAR",
+   "kind": "panel",
+   "selected": false
+  },
+  "textures/2d/menu/label_hover_option_selected.png": {
+   "text": "HOVER",
+   "kind": "panel",
+   "selected": true
+  },
+  "textures/2d/menu/label_hover_option_nonselected.png": {
+   "text": "HOVER",
+   "kind": "panel",
+   "selected": false
+  },
+  "textures/2d/menu/label_off_option_selected.png": {
+   "text": "OFF",
+   "kind": "panel",
+   "selected": true
+  },
+  "textures/2d/menu/label_off_option_nonselected.png": {
+   "text": "OFF",
+   "kind": "panel",
+   "selected": false
+  },
+  "textures/2d/menu/label_on_option_selected.png": {
+   "text": "ON",
+   "kind": "panel",
+   "selected": true
+  },
+  "textures/2d/menu/label_on_option_nonselected.png": {
+   "text": "ON",
+   "kind": "panel",
+   "selected": false
+  },
+  "textures/2d/menu/label_plane_option_selected.png": {
+   "text": "PLANE",
+   "kind": "panel",
+   "selected": true
+  },
+  "textures/2d/menu/label_plane_option_nonselected.png": {
+   "text": "PLANE",
+   "kind": "panel",
+   "selected": false
+  },
+  "textures/2d/menu/label_player1.png": {
+   "text": "PLAYER 1",
+   "kind": "panel"
+  },
+  "textures/2d/menu/label_player2.png": {
+   "text": "PLAYER 2",
+   "kind": "panel"
+  },
+  "textures/2d/menu/label_player3.png": {
+   "text": "PLAYER 3",
+   "kind": "panel"
+  },
+  "textures/2d/menu/label_player4.png": {
+   "text": "PLAYER 4",
+   "kind": "panel"
+  },
+  "textures/2d/menu/label_tt.png": {
+   "text": "T.T.",
+   "kind": "panel"
+  },
+  "textures/2d/menu/label_vehicle.png": {
+   "text": "VEHICLE",
+   "kind": "panel"
+  },
+  "textures/2d/menu/trademark_small.png": {
+   "text": "TM",
+   "style": "white",
+   "pad": 0
+  },
+  "textures/3d/dino/ancient_lake_sign.png": {
+   "text": "ANCIENT LAKE",
+   "kind": "sign"
+  },
+  "textures/3d/dino/fossil_canyon_sign.png": {
+   "text": "FOSSIL CANYON",
+   "kind": "sign"
+  },
+  "textures/3d/dino/hot_top_volcano_sign.png": {
+   "text": "HOT TOP VOLCANO",
+   "kind": "sign"
+  },
+  "textures/3d/dino/jungle_falls_sign.png": {
+   "text": "JUNGLE FALLS",
+   "kind": "sign"
+  },
+  "textures/3d/medieval/boulder_canyon_sign.png": {
+   "text": "BOULDER CANYON",
+   "kind": "sign"
+  },
+  "textures/3d/medieval/haunted_wood_sign.png": {
+   "text": "HAUNTED WOODS",
+   "kind": "sign"
+  },
+  "textures/3d/medieval/windmill_plains_sign.png": {
+   "text": "WINDMILL PLAINS",
+   "kind": "sign"
+  },
+  "textures/3d/space/spacedust_alley_sign.png": {
+   "text": "SPACEDUST ALLEY",
+   "kind": "sign"
+  },
+  "textures/3d/space/spaceport_alpha_sign.png": {
+   "text": "SPACEPORT ALPHA",
+   "kind": "sign"
+  },
+  "textures/3d/space/star_city_sign.png": {
+   "text": "STAR CITY",
+   "kind": "sign"
+  },
+  "textures/3d/tropical/crescent_island_sign.png": {
+   "text": "CRESCENT ISLAND",
+   "kind": "sign"
+  },
+  "textures/3d/tropical/pirate_lagoon_sign.png": {
+   "text": "PIRATE LAGOON",
+   "kind": "sign"
+  },
+  "textures/3d/tropical/treasure_caves_sign.png": {
+   "text": "TREASURE CAVES",
+   "kind": "sign"
+  },
+  "textures/3d/tropical/whale_bay_sign.png": {
+   "text": "WHALE BAY",
+   "kind": "sign"
+  },
+  "textures/3d/unused/crescent_island_programmer_art_sign.png": {
+   "text": "CRESCENT ISLAND",
+   "kind": "sign"
+  },
+  "textures/3d/unused/pirate_lagoon_programmer_art_sign.png": {
+   "text": "PIRATE LAGOON",
+   "kind": "sign"
+  },
+  "textures/3d/unused/treasure_caves_programmer_art_sign.png": {
+   "text": "TREASURE CAVES",
+   "kind": "sign"
+  },
+  "textures/3d/unused/whale_bay_programmer_art_sign.png": {
+   "text": "WHALE BAY",
+   "kind": "sign"
+  },
+  "textures/3d/unused/twilight_city_sign.png": {
+   "text": "TWILIGHT CITY",
+   "kind": "sign"
+  },
+  "textures/3d/winter/everfrost_peak_sign.png": {
+   "text": "EVERFROST PEAK",
+   "kind": "sign"
+  },
+  "textures/3d/winter/frosty_village_sign.png": {
+   "text": "FROSTY VILLAGE",
+   "kind": "sign"
+  },
+  "textures/3d/winter/walrus_cove_sign.png": {
+   "text": "WALRUS COVE",
+   "kind": "sign"
+  },
+  "textures/3d/medieval/greenwood_village_sign_0.png": {
+   "text": "GREENWOOD VILLAGE",
+   "kind": "sign",
+   "group": [
+    "textures/3d/medieval/greenwood_village_sign_0.png",
+    "textures/3d/medieval/greenwood_village_sign_1.png"
+   ]
+  },
+  "textures/3d/space/darkmoon_caverns_sign_0.png": {
+   "text": "DARKMOON CAVERNS",
+   "kind": "sign",
+   "group": [
+    "textures/3d/space/darkmoon_caverns_sign_0.png",
+    "textures/3d/space/darkmoon_caverns_sign_1.png"
+   ]
+  },
+  "textures/3d/objects/exit_sign.png": {
+   "text": "EXIT",
+   "kind": "sign",
+   "args": {
+    "bg": [
+     [
+      230,
+      30,
+      30
+     ],
+     [
+      170,
+      10,
+      10
+     ]
+    ],
+    "border": [
+     255,
+     220,
+     40
+    ],
+    "style": "white"
+   }
+  },
+  "textures/3d/objects/exit_sign_small.png": {
+   "text": "EXIT",
+   "kind": "sign",
+   "args": {
+    "bg": [
+     [
+      230,
+      30,
+      30
+     ],
+     [
+      170,
+      10,
+      10
+     ]
+    ],
+    "border": [
+     255,
+     220,
+     40
+    ],
+    "style": "white"
+   }
+  },
+  "textures/3d/unused/sign_100.png": {
+   "text": "100",
+   "style": "white"
+  },
+  "textures/3d/unused/sign_60.png": {
+   "text": "60",
+   "style": "white"
+  },
+  "textures/3d/unused/sign_30.png": {
+   "text": "30",
+   "style": "white"
+  },
+  "textures/3d/objects/gold_trophy_number.png": {
+   "text": "1",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/silver_trophy_number.png": {
+   "text": "2",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/bronze_trophy_number.png": {
+   "text": "3",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/trophy_sign_qmark.png": {
+   "text": "?",
+   "kind": "sign"
+  },
+  "textures/3d/objects/door_numbers_ones_digit_0.png": {
+   "text": "0",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_ones_digit_1.png": {
+   "text": "1",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_ones_digit_2.png": {
+   "text": "2",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_ones_digit_3.png": {
+   "text": "3",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_ones_digit_4.png": {
+   "text": "4",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_ones_digit_5.png": {
+   "text": "5",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_ones_digit_6.png": {
+   "text": "6",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_ones_digit_7.png": {
+   "text": "7",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_ones_digit_8.png": {
+   "text": "8",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_ones_digit_9.png": {
+   "text": "9",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_tens_digit_0.png": {
+   "text": "0",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_tens_digit_1.png": {
+   "text": "1",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_tens_digit_2.png": {
+   "text": "2",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_tens_digit_3.png": {
+   "text": "3",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_tens_digit_4.png": {
+   "text": "4",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_tens_digit_5.png": {
+   "text": "5",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_tens_digit_6.png": {
+   "text": "6",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/objects/door_numbers_tens_digit_7.png": {
+   "text": "7",
+   "style": "gold",
+   "weight": 0.13
+  },
+  "textures/3d/common/nintendo_logo.png": {
+   "text": "Nintendo",
+   "style": "white",
+   "weight": 0.09
+  },
+  "textures/3d/unused/nintendo_logo_negative_0.png": {
+   "text": "Nintendo",
+   "style": "white",
+   "weight": 0.09
+  },
+  "textures/3d/unused/nintendo_logo_negative_1.png": {
+   "text": "Nintendo",
+   "style": "white",
+   "weight": 0.09
+  },
+  "textures/3d/unused/nintendo_logo_negative_2.png": {
+   "text": "Nintendo",
+   "style": "white",
+   "weight": 0.09
+  },
+  "textures/3d/unused/nintendo_logo_negative_3.png": {
+   "text": "Nintendo",
+   "style": "white",
+   "weight": 0.09
+  },
+  "textures/3d/unused/beta_dkr_logo.png": {
+   "text": "DKR",
+   "style": "white"
+  },
+  "textures/3d/unused/proam64_balloon_logo.png": {
+   "text": "PRO AM",
+   "style": "white"
   }
  }
 }

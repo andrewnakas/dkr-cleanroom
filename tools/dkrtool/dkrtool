@@ -1,2 +1,4 @@
 #!/bin/sh
-exec node -r D:/n64work/dkr/tooljs/posixcwd.js D:/n64work/dkr/tooljs/dkr_assets_tool.js "$@"
+# Run the Node build of dkr_assets_tool (built by build_node.sh) with a POSIX-style cwd.
+D="$(cygpath -m "$(cd "$(dirname "$0")" && pwd)")"
+exec node -r "$D/posixcwd.js" "${DKRTOOL_JS:-D:/n64work/dkr/tooljs/dkr_assets_tool.js}" "$@"

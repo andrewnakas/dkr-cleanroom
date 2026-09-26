@@ -31,13 +31,17 @@ VER = "us.v80"
 # ctl -> tbl pairs inside audio/unknown
 BANKS = {"asset_audio_0.bin": "asset_audio_1.bin", "asset_audio_2.bin": "asset_audio_3.bin"}
 SKIP_DIRS = ("debug/",)
+SRC_ROOT = [""]
 
 
 def kept_file(rel):
     if rel.startswith(SKIP_DIRS):
         return False
-    if rel.endswith((".png", ".gltf")):
+    if rel.endswith(".png"):
         return False
+    if rel.endswith(".gltf"):          # object placement maps; kept only if image-free
+        j = json.load(open(os.path.join(SRC_ROOT[0], rel), encoding="utf-8"))
+        return not (j.get("images") or j.get("textures"))
     base = os.path.basename(rel)
     if rel.startswith("audio/") and (base in BANKS or base in BANKS.values()):
         return False
@@ -102,6 +106,7 @@ def audio_facts(src):
 
 def main(dirty, spec):
     src = os.path.join(dirty, "assets", ".vanilla", VER)
+    SRC_ROOT[0] = src
     kept_dir = os.path.join(spec, "kept")
     shutil.rmtree(kept_dir, ignore_errors=True)
     counts = Counter()
