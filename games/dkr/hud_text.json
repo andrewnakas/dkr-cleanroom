@@ -22,7 +22,7 @@
   "sprites/hud/first_place_one.json": {
    "text": "1",
    "style": "gold",
-   "weight": 0.14
+   "weight": 0.11
   },
   "sprites/hud/first_place_st.json": {
    "text": "ST",
@@ -40,7 +40,7 @@
     "8"
    ],
    "style": "gold",
-   "weight": 0.14
+   "weight": 0.11
   },
   "sprites/hud/timer_numbers.json": {
    "frames": [
@@ -122,12 +122,12 @@
   "textures/2d/hud/lap2_2.png": {
    "text": "2",
    "style": "green",
-   "weight": 0.14
+   "weight": 0.11
   },
   "textures/2d/hud/lap_2_small.png": {
    "text": "2",
    "style": "green",
-   "weight": 0.14
+   "weight": 0.11
   },
   "textures/2d/hud/way.png": {
    "text": "WAY",
@@ -243,42 +243,42 @@
   "textures/2d/hud/place_numbers_singletex_0.png": {
    "text": "1",
    "style": "gold",
-   "weight": 0.14
+   "weight": 0.11
   },
   "textures/2d/hud/place_numbers_singletex_1.png": {
    "text": "2",
    "style": "gold",
-   "weight": 0.14
+   "weight": 0.11
   },
   "textures/2d/hud/place_numbers_singletex_2.png": {
    "text": "3",
    "style": "gold",
-   "weight": 0.14
+   "weight": 0.11
   },
   "textures/2d/hud/place_numbers_singletex_3.png": {
    "text": "4",
    "style": "gold",
-   "weight": 0.14
+   "weight": 0.11
   },
   "textures/2d/hud/place_numbers_singletex_4.png": {
    "text": "5",
    "style": "gold",
-   "weight": 0.14
+   "weight": 0.11
   },
   "textures/2d/hud/place_numbers_singletex_5.png": {
    "text": "6",
    "style": "gold",
-   "weight": 0.14
+   "weight": 0.11
   },
   "textures/2d/hud/place_numbers_singletex_6.png": {
    "text": "7",
    "style": "gold",
-   "weight": 0.14
+   "weight": 0.11
   },
   "textures/2d/hud/place_numbers_singletex_7.png": {
    "text": "8",
    "style": "gold",
-   "weight": 0.14
+   "weight": 0.11
   },
   "textures/2d/hud/timer_numbers_singletex_0.png": {
    "text": "0",

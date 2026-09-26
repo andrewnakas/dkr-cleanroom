@@ -80,7 +80,8 @@ def render_sprite(frames, b, textures):
     """Paint one brief over a multi-piece sprite: the pieces' kept alpha is
     assembled on a shared canvas (sprite-x/y), painted once, then cut back."""
     out = []
-    for pieces in frames:
+    per_frame = b if isinstance(b, list) else [b] * len(frames)
+    for pieces, b in zip(frames, per_frame):
         pieces = [p for p in pieces if p["rel"] in textures]
         if not pieces:
             continue
@@ -106,6 +107,7 @@ def all_overrides(textures, kept=None):
     out = []
     allb = dict(icons.briefs(textures))
     allb.update(eyes.briefs(textures))
+    allb.update(icons.menu_briefs(textures))
     allb.update(load())
     for rel, b in allb.items():
         if rel in textures:

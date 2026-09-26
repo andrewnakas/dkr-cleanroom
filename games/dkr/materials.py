@@ -32,8 +32,22 @@ CLASSES = [
 ]
 
 
+MENU = {"track_select_bg_dino_domain": "grain", "track_select_bg_dragon_forest": "grass",
+        "track_select_bg_sherbet_island": "grain", "track_select_bg_snowflake_mountain": "snow",
+        "track_select_bg_future_fun_land": "metal", "cobble_panel": "rock", "portal_panel": "water",
+        "wood_panel": "wood", "track_select_locked": "rock", "track_select_unlocked": "grass"}
+
+
 def classify(rel):
     name = rel.rsplit("/", 1)[-1][:-4].lower()
+    if rel.startswith("textures/2d/objects/") and not SKIP.search(name):
+        if re.search(r"tree|bush|plant|palm|reed|leaves|fern", name):
+            return "grass"
+        if re.search(r"snowman", name):
+            return "snow"
+        return None
+    if rel.startswith("textures/2d/menu/"):
+        return MENU.get(re.sub(r"_\d+$", "", name))
     if not rel.startswith("textures/3d/") or SKIP.search(name):
         return None
     for cls, pat in CLASSES:
