@@ -1,0 +1,16 @@
+#!/bin/sh
+# Build dkr_assets_tool as a Node program (POSIX std::filesystem via NODERAWFS).
+set -e
+export PATH="/e/n64web/emsdk/upstream/emscripten:/e/n64web/emsdk/upstream/bin:$PATH" EM_CACHE=E:/n64web/emcache
+SRC=/d/n64work/dkr/pristine/tools
+OUT=/d/n64work/dkr/tooljs/obj
+mkdir -p $OUT
+cd $SRC
+FL="-O2 -fexceptions -DPCRE2_CODE_UNIT_WIDTH=8 -DPCRE2_STATIC -I/d/n64work/dkr/tooljs/pcre2-10.44/src -pthread -I . -I dkr_assets_tool_src/ -D__linux__=1"
+find dkr_assets_tool_src -name '*.cpp' -o -name '*.c' | xargs -P 12 -I{} sh -c '
+  f={}; o='$OUT'/$(echo $f | tr / _).o
+  [ -s $o ] && [ $o -nt $f ] && exit 0
+  case $f in *.cpp) em++ -std=c++17 '"$FL"' -c $f -o $o ;; *) emcc '"$FL"' -c $f -o $o ;; esac || echo FAIL $f'
+em++ -O2 -fexceptions --profiling-funcs -sASSERTIONS=1 -pthread $OUT/*.o /d/n64work/dkr/tooljs/pcre2-10.44/libpcre2-8.a -o /d/n64work/dkr/tooljs/dkr_assets_tool.js -sNODERAWFS=1 -sALLOW_MEMORY_GROWTH=1 \
+  -sPROXY_TO_PTHREAD=1 -sPTHREAD_POOL_SIZE=16 -sEXIT_RUNTIME=1 -sSTACK_SIZE=8MB -sINITIAL_MEMORY=512MB -sMAXIMUM_MEMORY=4GB -sDEFAULT_PTHREAD_STACK_SIZE=4MB
+echo built

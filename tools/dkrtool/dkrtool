@@ -1,0 +1,2 @@
+#!/bin/sh
+exec node -r D:/n64work/dkr/tooljs/posixcwd.js D:/n64work/dkr/tooljs/dkr_assets_tool.js "$@"
