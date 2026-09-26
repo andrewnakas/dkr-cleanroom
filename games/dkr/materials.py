@@ -7,6 +7,7 @@ periodic (FFT-filtered white noise), so textures tile without seams.
 
 apply(rel, d) -> RGBA float image, or None when no material fits.
 """
+import os
 import re
 
 import numpy as np

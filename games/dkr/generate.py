@@ -17,7 +17,7 @@ import numpy as np
 from PIL import Image
 
 from cleanroom.decomp.gen import from_digest
-from games.dkr import audio_gen, fonts, materials
+from games.dkr import audio_gen, fonts, materials, texcheck
 
 VER = "us.v80"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -77,6 +77,7 @@ def main():
     if a.only in ("", "textures"):
         textures = json.load(open(os.path.join(a.spec, "textures.json")))
         ov = overrides(a.spec, textures)
+        fmts = texcheck.formats(os.path.join(a.spec, "kept"))
         for rel, d in textures.items():
             if rel in ov:
                 img, tag = ov[rel]
@@ -88,6 +89,11 @@ def main():
                 else:
                     img = from_digest(rel, d).astype(np.float32)
                     counts["texture digest"] += 1
+            fmt, comp = fmts.get(rel, ("RGBA16", False))
+            if comp:                            # in-place inflate safety (texcheck.py)
+                img, steps = texcheck.make_safe(np.asarray(img, np.float32), fmt)
+                if steps:
+                    counts["texture detail reduced for compression"] += 1
             save_png(os.path.join(dst, rel), img, d.get("mode", "RGBA"))
     if a.only in ("", "audio"):
         spec_audio = json.load(open(os.path.join(a.spec, "audio.json")))

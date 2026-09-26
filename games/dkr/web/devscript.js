@@ -8,7 +8,10 @@
   if (!q) return;
   var steps = q.split(','), i = 0;
   function key(t, code) { window.dispatchEvent(new KeyboardEvent(t, { code: code, key: code, bubbles: true })); }
-  function menu() { return (typeof Module !== 'undefined' && Module._dev_menu_id) ? Module._dev_menu_id() : -1; }
+  var ready = false;   // calling into wasm before it is initialised aborts the runtime
+  var prev = Module.onRuntimeInitialized;
+  Module.onRuntimeInitialized = function () { if (prev) prev(); ready = true; };
+  function menu() { return (ready && Module._dev_menu_id) ? Module._dev_menu_id() : -1; }
   function next() {
     if (i >= steps.length) return;
     var s = steps[i];
