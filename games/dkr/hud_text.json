@@ -197,32 +197,38 @@
   "textures/2d/hud/speedometer_0.png": {
    "text": "0",
    "style": "green",
-   "pad": 2
+   "pad": 1,
+   "weight": 0.07
   },
   "textures/2d/hud/speedometer_30.png": {
    "text": "30",
    "style": "green",
-   "pad": 2
+   "pad": 1,
+   "weight": 0.07
   },
   "textures/2d/hud/speedometer_60.png": {
    "text": "60",
    "style": "yellow",
-   "pad": 2
+   "pad": 1,
+   "weight": 0.07
   },
   "textures/2d/hud/speedometer_90.png": {
    "text": "90",
    "style": "yellow",
-   "pad": 2
+   "pad": 1,
+   "weight": 0.07
   },
   "textures/2d/hud/speedometer_120.png": {
    "text": "120",
    "style": "red",
-   "pad": 2
+   "pad": 1,
+   "weight": 0.07
   },
   "textures/2d/hud/speedometer_150.png": {
    "text": "150",
    "style": "red",
-   "pad": 2
+   "pad": 1,
+   "weight": 0.07
   },
   "textures/2d/hud/place_number_suffixes_0.png": {
    "text": "ST",

@@ -12,6 +12,7 @@ import os
 import numpy as np
 
 from cleanroom.gfx import strokefont
+from games.dkr import glyphs_dkr  # noqa: F401  (DKR glyph designs)
 from games.dkr import sprites as spr
 from games.dkr.fonts import _dilate
 
@@ -51,7 +52,7 @@ def _resize(m, w, h):
 def text_mask(text, w, h, weight=0.11):
     """Coverage mask (h, w) with `text` stretched to fill the box."""
     if h < 24:
-        text = text.replace("0", "O")   # the slashed zero closes up when small
+        pass
     rh = max(12, h * 2)
     line = strokefont.render_line(text, rh, aspect=0.95, thickness=max(1.0, rh * weight), gap=rh * 0.08)
     ys, xs = np.nonzero(line > 0.05)

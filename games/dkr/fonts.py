@@ -14,6 +14,7 @@ import os
 import numpy as np
 
 from cleanroom.gfx import strokefont
+from games.dkr import glyphs_dkr  # noqa: F401  (DKR glyph designs)
 
 STYLES = {
     "BigFont": {"fill": ((255, 246, 60), (255, 128, 16)), "outline": (24, 44, 210), "shadow": (0, 0, 24),
