@@ -99,8 +99,64 @@ def arrow(kind):
     return None
 
 
+def silhouette(top, bot, edge, ops=None, ow=1):
+    """Kept alpha outline as the shape; our own gradient fill and dark rim."""
+    return {"base": {"grad": [top, bot]}, "keep_alpha": True, "ops": (ops or []) + [{"outline": ow, "c": edge}]}
+
+
+def checker_flag(phase):
+    ops = []
+    n, m = 6, 4
+    for i in range(n):
+        for j in range(m):
+            if (i + j) % 2:
+                continue
+            x0, x1 = i / n, (i + 1) / n
+            wob = 0.06 * math.sin(phase + i * 1.1)
+            y0, y1 = j / m + wob, (j + 1) / m + wob
+            ops.append({"poly": [[x0, y0], [x1, y0 + 0.03], [x1, y1 + 0.03], [x0, y1]], "c": [25, 25, 30]})
+    return {"base": [245, 245, 245], "keep_alpha": True, "ops": ops + [{"outline": 1, "c": [60, 60, 70]}]}
+
+
+SIMPLE = {
+    "indicatoricon_down": ([255, 240, 70], [240, 40, 200], [110, 0, 90]),
+    "indicatoricon_slight_turn": ([255, 240, 70], [240, 40, 200], [110, 0, 90]),
+    "indicatoricon_turn": ([255, 240, 70], [240, 40, 200], [110, 0, 90]),
+    "indicatoricon_uturn": ([255, 240, 70], [240, 40, 200], [110, 0, 90]),
+    "indicatoricon_caution": ([255, 240, 70], [240, 40, 200], [110, 0, 90]),
+    "reticle_circle": ([255, 255, 255], [220, 225, 240], [40, 40, 60]),
+    "reticle_square": ([255, 255, 255], [220, 225, 240], [40, 40, 60]),
+    "reticle_x": ([255, 255, 255], [220, 225, 240], [40, 40, 60]),
+    "retical_homing_0": ([255, 240, 90], [240, 170, 20], [80, 40, 0]),
+    "retical_homing_1": ([255, 240, 90], [240, 170, 20], [80, 40, 0]),
+    "speedometer_arrow": ([255, 250, 120], [250, 170, 20], [30, 50, 200]),
+    "speedometer_ticks": ([255, 255, 255], [230, 230, 240], [60, 60, 80]),
+    "banana_icon_0": ([255, 245, 110], [235, 190, 20], [110, 70, 0]),
+    "banana_icon_1": ([255, 245, 110], [235, 190, 20], [110, 70, 0]),
+    "egg_icon": ([255, 250, 235], [225, 205, 170], [120, 90, 60]),
+}
+
+
+def balloon(top, bot):
+    return {"base": {"grad": [top, bot]}, "keep_alpha": True,
+            "ops": [{"sphere": [0.5, 0.42, 0.38, 0.4], "c": top}, {"hl": [0.38, 0.26, 0.08]},
+                    {"outline": 1, "c": [70, 50, 20]}]}
+
+
 def briefs(textures):
     out = {}
+    for name, (a, b, e) in SIMPLE.items():
+        rel = H + name + ".png"
+        if rel in textures:
+            out[rel] = silhouette(a, b, e)
+    for i in range(5):
+        rel = H + "final_lap_%d.png" % i
+        if rel in textures:
+            out[rel] = checker_flag(i * 1.25)
+    if H + "golden_balloon_icon.png" in textures:
+        out[H + "golden_balloon_icon.png"] = balloon([255, 220, 60], [200, 140, 10])
+    if H + "silver_balloon_icon.png" in textures:
+        out[H + "silver_balloon_icon.png"] = balloon([235, 240, 250], [150, 160, 180])
     for kind in ("boost", "magnet", "rocket", "shield", "trap"):
         for lvl in range(3):
             rel = H + "weapon_icon_%s_%d.png" % (kind, lvl)

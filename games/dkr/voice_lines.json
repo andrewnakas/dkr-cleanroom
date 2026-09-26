@@ -1,0 +1,19 @@
+{
+ "_doc": "DKR voice samples are non-verbal vocalisations / gibberish (checked with Whisper on the retail clips: no consistent words), so there are no English TTS placeholders. The slots stay resynthesised from their outlines until the user records takes (practice pack: games/dkr/practice.py).",
+ "_characters": {
+  "taj": {
+   "tts": {
+    "model": "en_US-ryan-high",
+    "semitones": -1.0,
+    "length": 1.0
+   }
+  },
+  "announcer": {
+   "tts": {
+    "model": "en_US-joe-medium",
+    "semitones": 1.5,
+    "length": 0.95
+   }
+  }
+ }
+}

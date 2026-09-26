@@ -16,7 +16,7 @@ import numpy as np
 
 from cleanroom.audio import descriptor, vadpcm
 
-MUSIC_CTL = "asset_audio_2.bin"
+MUSIC_CTL = "asset_audio_0.bin"
 
 
 def _seed(*parts):
@@ -69,19 +69,32 @@ def wave_pcm(bank, w, rate, music):
     return np.clip(np.round(np.asarray(x, np.float64) * 32767), -32768, 32767).astype(np.int64)
 
 
-def build_bank(ctl_name, spec_bank, cache_dir=None):
+def voice_pcm(v, w):
+    """A cached placeholder voice line, scaled to the slot's peak level."""
+    x = np.zeros(w["n"], np.float64)
+    x[:min(len(v), w["n"])] = v[:w["n"]]
+    peak = np.abs(x).max()
+    if peak > 0:
+        x = x * min(0.99, max(w.get("peak", 20000), 8000) / 32768.0) / peak
+    return np.clip(np.round(x * 32767), -32768, 32767).astype(np.int64)
+
+
+def build_bank(ctl_name, spec_bank, cache_dir=None, spec=None):
+    from games.dkr import voices
     ctl = bytearray(bytes.fromhex(spec_bank["ctl_skeleton"]))
     tbl = bytearray(spec_bank["tbl_size"])
     rate = spec_bank["rate"]
     music = ctl_name == MUSIC_CTL
     for w in spec_bank["waves"]:
-        key = hashlib.sha1(json.dumps([ctl_name, w], sort_keys=True).encode()).hexdigest()[:16]
+        v = voices.for_wave(spec, ctl_name, w["wave"]) if spec else None
+        vkey = hashlib.sha1(v.tobytes()).hexdigest() if v is not None else ""
+        key = hashlib.sha1(json.dumps([ctl_name, MUSIC_CTL, w, vkey], sort_keys=True).encode()).hexdigest()[:16]
         cp = os.path.join(cache_dir, key + ".npz") if cache_dir else None
         if cp and os.path.exists(cp):
             z = np.load(cp)
             data, book, dec = z["data"].tobytes(), z["book"].tolist(), z["dec"]
         else:
-            pcm = wave_pcm(ctl_name, w, rate, music)
+            pcm = voice_pcm(v, w) if v is not None else wave_pcm(ctl_name, w, rate, music)
             book, dec = [], np.zeros(0, np.int64)
             if w["type"] == 1:        # RAW16
                 data = pcm[:w["len"] // 2].astype(">i2").tobytes()

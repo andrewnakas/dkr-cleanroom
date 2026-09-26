@@ -90,7 +90,7 @@ def main():
         cache = os.path.join(os.path.dirname(os.path.abspath(a.spec)), "gencache", "audio")
         os.makedirs(cache, exist_ok=True)
         for ctl_name, bank in spec_audio.items():
-            ctl, tbl = audio_gen.build_bank(ctl_name, bank, cache)
+            ctl, tbl = audio_gen.build_bank(ctl_name, bank, cache, a.spec)
             open(os.path.join(dst, "audio/unknown", ctl_name), "wb").write(ctl)
             open(os.path.join(dst, "audio/unknown", bank["tbl"]), "wb").write(tbl)
             counts["audio bank " + ctl_name] = len(bank["waves"])
