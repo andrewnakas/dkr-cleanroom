@@ -1,45 +1,54 @@
 # Diddy Kong Racing clean room: status
 
-Play: https://andrewnakas.github.io/dkr-cleanroom/ (published once the first clean site passed taint)
+Play: **https://andrewnakas.github.io/dkr-cleanroom/** (repo: andrewnakas/dkr-cleanroom, site on gh-pages)
 
-## Works
-- **Clean web build boots and plays**: N64/Rare logos, attract flyby, title (our logo), PLAYER SELECT,
-  CAUTION text, GAME SELECT, initials entry, Adventure intro and driving in the hub. Audio plays through
-  (no underruns in a 90 s headless run).
+## Works (verified in headless Chrome on the clean build)
+- Boots: N64/Rare logos, attract flyby, attract demo races, title with our logo, OPTIONS menu.
+- **Plays**: PLAYER SELECT -> CAUTION -> GAME SELECT (Adventure/Tracks) -> Tracks race with full HUD
+  (place + suffix, LAP 1/3, banana count, TIME, WRONG WAY, weapon icon, minimap); Adventure intro + hub drive.
+- Audio plays through (no underruns in 90 s runs). Keyboard + Gamepad API (standard mapping) input.
 - **Taint: 0 failing** (2,718 textures as RGBA, both sample tables raw, all 677 waves as PCM).
-- Every texture regenerated: digest (4x4 grid + noise + kept 2-bit alpha) by default, plus drawn overrides:
-  - 4 game fonts re-typeset (glyph cells placed by the kept font metrics) - `fonts.py`, checked with `font_check.py`
-  - HUD words/numbers (FINAL, FINISH, GET READY, GO!, LAP, WRONG WAY, TIME, place numbers + ST/ND/RD/TH,
-    timers, speedometer labels, rocket counters), menu option panels, title logo - `drawn.py` + `hud_text.json`
-  - 25 track-name signs, EXIT signs, trophy numbers, door digits, "Nintendo" wordmark re-typeset
-  - 10 HUD character portraits (`face_briefs.json`), 15 weapon icons (`icons.py`)
-  - ~100 eye/mouth textures incl. blink frames (`eyes.py`)
-- All samples resynthesised from outlines; banks keep exact sizes/offsets; our own VADPCM books and loop states.
+
+## What is generated (all from spec facts + our own code)
+- Textures: digest (4x4/16x16 grid + noise + kept 2-bit alpha) by default; **tileable procedural materials**
+  by name for world textures (grass, sand/dirt, rock, wood, bark, brick, roof tiles, snow, water, metal, fur)
+  and tree/bush billboards (`materials.py`).
+- Readable: 4 game fonts re-typeset through the kept metrics (`fonts.py`, `font_check.py`); HUD words and
+  numbers, menu option panels, title logo (`drawn.py`, `hud_text.json`); 25 track-name signs, EXIT signs,
+  trophy numbers, door digits, wordmarks.
+- Faces/sprites/pictures: 10 HUD portraits (`face_briefs.json`), ~100 eye/mouth textures with blink frames
+  (`eyes.py`), weapon icons x3 levels, turn indicators, reticles, speedometer, checkered flag, balloon icons,
+  pickups (weapon balloons, bananas, silver coins, eggs, bombs) painted across their multi-strip sprites,
+  menu icons (vehicle pictures, option icons, TT on/off, keys, trophies, amulet progress) (`icons.py`, `faces.py`).
+- Audio: every wave resynthesised from its outline; music instruments held at the kept median pitch; our own
+  VADPCM books/loop states; banks keep exact sizes and offsets.
 
 ## Decisions (log)
-- **Web route = PC port + Emscripten** (playbook §4 route 1/2). Bruceleeto/Diddy-Kong-Racing has a small
-  single-threaded SDL2 + GL 1.x port (`linux/`, ~3k lines). Replaced its GL layer with a WebGL2 shader
-  (`games/dkr/web/gfx_web.c`), added Gamepad API input (`web/input_web.c`), Asyncify for the frame sleep,
-  EEPROM saves in localStorage. Decided at ~30 min: dev build booted to the attract mode.
-- **ROM = US v80** (Rev 1, sha1 6d96743d...). The port defaulted to v77; the web build defines VERSION_US_V80.
-- **Asset tool** (`dkr_assets_tool`, C++17) does not build natively on Windows (wide `fs::path`). Built it
-  with Emscripten for Node (`NODERAWFS`, `-fexceptions`, PCRE2 from source; `std::regex` rejects its
-  patterns). Node preload fakes a POSIX cwd. Its gzip level-9 table is swapped for level-6 search settings
-  in our build (noise-detailed textures made the 4096-chain search take 30+ min; now ~5 min).
-- **Round trip**: dirty `assets.bin` rebuilt by the tool is byte-identical to the ROM's asset block (0xED1B0).
-- **Kept facts** (user scope): geometry (level/object models, animations), object placement maps (gltf,
-  checked image-free), text, sequences, game tables, TT ghosts. Spec lives in D:/n64work/dkr/spec (not committed).
-- The tool's `debug/` extraction (raw retail texture dumps) is never copied to spec or clean.
-- Signature fixes wasm needs: `osAiSetNextBuffer` returns s32; the game's own `f32 log()` renamed so SDL's
-  `double log()` is not hijacked.
-- Dev server port: **8731** dev (dirty, local only), **8732** clean.
+- **Web route = PC port + Emscripten** (Bruceleeto/Diddy-Kong-Racing SDL2+GL port; WebGL2 shader renderer,
+  Gamepad API, Asyncify pacing, localStorage EEPROM). Decided in the first 30 min.
+- **ROM = US v80** (Rev 1); the web build defines VERSION_US_V80.
+- **Asset tool** built with Emscripten for Node (NODERAWFS, -fexceptions, PCRE2 from source, POSIX-cwd preload);
+  gzip level-9 search swapped for level-6 settings (noise textures: 30+ min -> ~4 min). Round trip of the dirty
+  tree is byte-identical to the ROM's asset block.
+- **Kept facts**: geometry (level/object models, animations), object placement maps (gltf, verified image-free),
+  text, sequences, game tables, TT ghosts. The tool's `debug/` raw texture dumps are never used.
+- **Bank roles**: asset_audio_0/1 = music ctl/tbl, 2/3 = SFX ctl/tbl, 7 = SFX table (bank sound + pitch),
+  4 = SFX sound names. (First generation had music/SFX swapped for the pitch rule; fixed and regenerated.)
+- **Voices: no TTS placeholders.** DKR's character "speech" samples are gibberish vocalisations (Whisper on the
+  retail clips finds no consistent words - e.g. every `dean_*` "track name" is a mumble), so English TTS would
+  be wrong. They stay resynthesised until the user records takes. Practice pack built (see morning list).
+- Dev hook: `?script=` page sequencer (menu-aware via exported `dev_menu_id`), used for headless race tests.
+- Ports: 8731 dev (dirty, local only), 8732 clean.
 
 ## Next
-- More icons: turn indicators, reticles, speedometer needle/dial, balloons, banana/egg, checkered flag,
-  menu icons (trophies, keys, amulets, vehicle icons), track-select backgrounds.
-- Character body textures that carry detail (Diddy's cap star, shirts), trophy art, Wizpig.
-- Voices: placeholder TTS + practice pack (DKR has few voice clips; check the sfx bank for speech).
-- In-race check (Tracks mode) and gamepad check.
+- Character body textures with detail (Diddy's cap star, shirts), Wizpig/boss faces on 3D models, trophies.
+- Adventure hub: Taj, doors, balloon counters; results/trophy screens check.
+- Music instrument quality (listen report from the user); SFX that sound wrong.
 
 ## For the morning
-- Play it with a controller; tell me what looks wrong first.
+- Play it (keyboard or controller): https://andrewnakas.github.io/dkr-cleanroom/ - tell me what looks or
+  sounds wrong first.
+- **Voice practice pack** (personal use, not published): `D:/n64work/dkr/practice_pack/`
+  - `SCRIPT.txt`, one `track_<character>.wav` per character (17 characters, 317 clips):
+    reference clip, beep, your turn. Record each track straight through (keep the beeps).
+  - These are mumbles/grunts/laughs, not words - imitate the feel, not the syllables.
