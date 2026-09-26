@@ -37,11 +37,11 @@ Play: **https://andrewnakas.github.io/dkr-cleanroom/** (repo: andrewnakas/dkr-cl
 - **Voices: no TTS placeholders.** DKR's character "speech" samples are gibberish vocalisations (Whisper on the
   retail clips finds no consistent words - e.g. every `dean_*` "track name" is a mumble), so English TTS would
   be wrong. They stay resynthesised until the user records takes. Practice pack built (see morning list).
-- **In-race hang fixed (important)**: noise-detailed textures made deflate emit *stored* blocks, which retail
-  data never has; the game's inflater (src/gzip.c) assumes an empty bit buffer after aligning a stored block
-  and derails (hang / corruption). Our build of the asset tool never emits stored blocks now, and the
-  generator keeps every texture well compressible (`texcheck.py`; textures are inflated in place).
-  Builds published before 01:50 could hang in races.
+- **Inflater hardening**: the game's inflater (src/gzip.c) assumes an empty bit buffer after aligning a
+  *stored* deflate block - a path retail data never uses, but noise-detailed textures made the packer emit
+  stored blocks. Our asset-tool build never emits them now, and the generator keeps every texture well
+  compressible (`texcheck.py`; textures are inflated in place). Race stalls seen in headless tests turned out
+  to be (at least mostly) SwiftShader under load, see below; hardware-GPU runs show no stall.
 - **Headless testing**: long runs with SwiftShader (`--webgl`) stall in the GPU process when the machine is
   loaded (retail dev build too); run race tests on the hardware GPU (omit `--webgl`): 0 underruns.
   `ports/wasm/cdp_shot.py` takes CDP screenshots without the console transport.
