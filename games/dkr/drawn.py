@@ -194,6 +194,44 @@ def title_logo(w=160, h=64):
     return img
 
 
+def star_tile(w, h, bg):
+    """A yellow five-point star on a coloured tile (banner ends)."""
+    import math
+    img = np.zeros((h, w, 4), np.float32)
+    img[..., :3] = bg
+    img[..., 3] = 255
+    pts = []
+    for k in range(10):
+        r = 0.42 if k % 2 == 0 else 0.18
+        a = math.radians(-90 + 36 * k)
+        pts.append((0.5 + r * math.cos(a), 0.52 + r * math.sin(a)))
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    xs, ys = (xx + 0.5) / w, (yy + 0.5) / h
+    inside = np.zeros((h, w), bool)
+    j = len(pts) - 1
+    for i in range(len(pts)):
+        xi, yi = pts[i]
+        xj, yj = pts[j]
+        cond = ((yi > ys) != (yj > ys)) & (xs < (xj - xi) * (ys - yi) / (yj - yi + 1e-9) + xi)
+        inside ^= cond
+        j = i
+    img[inside, :3] = (255, 220, 40)
+    return img
+
+
+BANNERS = {"orange": [220, 50, 30], "orange2": [220, 50, 30], "green": [40, 160, 60],
+           "snowy": [50, 110, 220], "snowy2": [50, 110, 220]}
+
+
+def banners(sizes):
+    """START banners over the finish line: tiles _1 and _2 carry the word."""
+    for v, bg in BANNERS.items():
+        base = "textures/3d/common/finish_line_flag_%s_" % v
+        t1, t2 = base + "1.png", base + "2.png"
+        if t1 in sizes and t2 in sizes and sizes[t1][1] == sizes[t2][1]:
+            yield [t1, t2], "START", bg
+
+
 def all_overrides(kept, textures):
     sizes = {k: (v["w"], v["h"]) for k, v in textures.items()}
     B = briefs()
@@ -232,9 +270,33 @@ def all_overrides(kept, textures):
                     x += gw
                 continue
             img = sign(b["text"], w, h, **b.get("args", {}))
+        elif b.get("kind") == "star_tile":
+            img = star_tile(w, h, b.get("bg", [220, 50, 30]))
         else:
             img = word_image(b["text"], w, h, b.get("style", "word"), pad=b.get("pad"), weight=b.get("weight", 0.11))
+            if "bg" in b:
+                bg = np.zeros_like(img)
+                bg[..., :3] = b["bg"]
+                bg[..., 3] = 255
+                a = img[..., 3:] / 255.0
+                bg[..., :3] = bg[..., :3] * (1 - a) + img[..., :3] * a
+                img = bg
+        if b.get("flip"):                     # stored upside-down (flipped-image)
+            img = img[::-1].copy()
         out.append((rel, img, "hud text"))
+    for group, text, bg in banners(sizes):
+        ws = [sizes[g][0] for g in group]
+        h = sizes[group[0]][1]
+        canvas = np.zeros((h, sum(ws), 4), np.float32)
+        canvas[..., :3] = bg
+        canvas[..., 3] = 255
+        tw = word_image(text, sum(ws) - 4, h - 8, "sign", pad=1, weight=0.11)
+        a = tw[..., 3:] / 255.0
+        canvas[4:h - 4, 2:-2, :3] = canvas[4:h - 4, 2:-2, :3] * (1 - a) + tw[..., :3] * a
+        x = 0
+        for g, gw in zip(group, ws):
+            out.append((g, canvas[:, x:x + gw].copy(), "banner"))
+            x += gw
     strips = ["textures/2d/menu/title_%d.png" % i for i in range(10)]
     if all(r in sizes for r in strips):
         logo = title_logo(sum(sizes[r][0] for r in strips), sizes[strips[0]][1])

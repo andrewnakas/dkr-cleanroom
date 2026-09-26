@@ -784,6 +784,298 @@
   "textures/3d/unused/proam64_balloon_logo.png": {
    "text": "PRO AM",
    "style": "white"
+  },
+  "textures/3d/common/finish_line_flag_orange_0.png": {
+   "kind": "star_tile",
+   "bg": [
+    220,
+    50,
+    30
+   ],
+   "text": ""
+  },
+  "textures/3d/common/finish_line_flag_orange_3.png": {
+   "kind": "star_tile",
+   "bg": [
+    220,
+    50,
+    30
+   ],
+   "text": ""
+  },
+  "textures/3d/common/finish_line_flag_orange2_0.png": {
+   "kind": "star_tile",
+   "bg": [
+    220,
+    50,
+    30
+   ],
+   "text": ""
+  },
+  "textures/3d/common/finish_line_flag_orange2_3.png": {
+   "kind": "star_tile",
+   "bg": [
+    220,
+    50,
+    30
+   ],
+   "text": ""
+  },
+  "textures/3d/common/finish_line_flag_green_0.png": {
+   "kind": "star_tile",
+   "bg": [
+    40,
+    160,
+    60
+   ],
+   "text": ""
+  },
+  "textures/3d/common/finish_line_flag_green_3.png": {
+   "kind": "star_tile",
+   "bg": [
+    40,
+    160,
+    60
+   ],
+   "text": ""
+  },
+  "textures/3d/common/finish_line_flag_snowy_0.png": {
+   "kind": "star_tile",
+   "bg": [
+    50,
+    110,
+    220
+   ],
+   "text": ""
+  },
+  "textures/3d/common/finish_line_flag_snowy_3.png": {
+   "kind": "star_tile",
+   "bg": [
+    50,
+    110,
+    220
+   ],
+   "text": ""
+  },
+  "textures/3d/common/finish_line_flag_snowy2_0.png": {
+   "kind": "star_tile",
+   "bg": [
+    50,
+    110,
+    220
+   ],
+   "text": ""
+  },
+  "textures/3d/common/finish_line_flag_snowy2_3.png": {
+   "kind": "star_tile",
+   "bg": [
+    50,
+    110,
+    220
+   ],
+   "text": ""
+  },
+  "textures/3d/objects/party_post_0.png": {
+   "text": "P",
+   "style": "title_blue",
+   "bg": [
+    250,
+    250,
+    250
+   ]
+  },
+  "textures/3d/objects/party_post_2.png": {
+   "text": "A",
+   "style": "title_red",
+   "bg": [
+    250,
+    250,
+    250
+   ]
+  },
+  "textures/3d/objects/party_post_3.png": {
+   "text": "RT",
+   "style": "green",
+   "bg": [
+    250,
+    250,
+    250
+   ]
+  },
+  "textures/3d/objects/party_post_4.png": {
+   "text": "Y",
+   "style": "word",
+   "bg": [
+    250,
+    250,
+    250
+   ]
+  },
+  "textures/3d/objects/checkpoint.png": {
+   "text": "CHECK",
+   "style": "red",
+   "bg": [
+    200,
+    190,
+    40
+   ]
+  },
+  "textures/3d/objects/bonus.png": {
+   "text": "BONUS",
+   "style": "white",
+   "bg": [
+    40,
+    70,
+    200
+   ]
+  },
+  "textures/3d/objects/mode.png": {
+   "text": "MODE",
+   "style": "red",
+   "bg": [
+    200,
+    200,
+    220
+   ]
+  },
+  "textures/3d/objects/exit.png": {
+   "text": "EXIT",
+   "style": "white",
+   "bg": [
+    60,
+    170,
+    60
+   ]
+  },
+  "textures/3d/objects/midi_fade.png": {
+   "text": "MIDI FADE",
+   "style": "red",
+   "bg": [
+    100,
+    220,
+    240
+   ]
+  },
+  "textures/3d/unused/mode2.png": {
+   "text": "MODE",
+   "style": "red",
+   "bg": [
+    60,
+    220,
+    220
+   ]
+  },
+  "textures/3d/objects/rareware.png": {
+   "text": "RAREWARE",
+   "style": "gold"
+  },
+  "textures/2d/unused/rare_letters_0.png": {
+   "text": "R",
+   "style": "gold"
+  },
+  "textures/2d/unused/rare_letters_1.png": {
+   "text": "A",
+   "style": "gold"
+  },
+  "textures/2d/unused/rare_letters_2.png": {
+   "text": "E",
+   "style": "gold"
+  },
+  "textures/3d/common/first_place_0.png": {
+   "text": "1ST",
+   "style": "word"
+  },
+  "textures/3d/common/first_place_1.png": {
+   "text": "1ST",
+   "style": "word"
+  },
+  "textures/3d/common/first_place_2.png": {
+   "text": "1ST",
+   "style": "word"
+  },
+  "textures/3d/common/first_place_3.png": {
+   "text": "1ST",
+   "style": "word"
+  },
+  "textures/3d/unused/menu_tex_10.png": {
+   "text": "CAR",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_11.png": {
+   "text": "PLANE",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_12.png": {
+   "text": "CAR",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_13.png": {
+   "text": "PLANE",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_14.png": {
+   "text": "PLAYER 3",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_15.png": {
+   "text": "PLAYER 4",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_16.png": {
+   "text": "VEHICLE",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_18.png": {
+   "text": "T.T.",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_22.png": {
+   "text": "OFF",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_23.png": {
+   "text": "OFF",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_24.png": {
+   "text": "ON",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_25.png": {
+   "text": "ON",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_6.png": {
+   "text": "PLAYER 1",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_7.png": {
+   "text": "PLAYER 2",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_8.png": {
+   "text": "HOVER",
+   "kind": "panel",
+   "flip": true
+  },
+  "textures/3d/unused/menu_tex_9.png": {
+   "text": "HOVER",
+   "kind": "panel",
+   "flip": true
   }
  }
 }
