@@ -48,6 +48,10 @@ that prints a one-screen summary.
 - **Audio pool sizes are fixed**: VADPCM books must stay 2 predictors (retail size) or sound banks outgrow their pools and audio dies mid-game. Check `sound_data.ctl` (or equivalent) size == retail.
 - Sequences built from `.s` must be byte-identical to retail (compare once, dev only).
 - Descriptor f0 has octave errors: use the spec's `f0` (YIN median) for pitch targets.
+- **Game-side decompressors only ever saw retail data** (DKR): noise-detailed textures made deflate emit
+  *stored* blocks the game's inflater mishandles (hang in races), and textures are inflated *in place*
+  (compressed bytes at the end of the output block). Keep generated assets compressible, make the packer
+  avoid code paths retail never used, and bisect content-dependent hangs by toggling generator features.
 
 **What the user notices first (fix in this order)**
 1. Anything unreadable: text in textures, fonts, HUD, dialog. Find text-bearing textures early (`find_text`, symbol names, contact sheet) and re-typeset them (`glyphs.label_texture`).

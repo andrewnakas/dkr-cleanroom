@@ -37,6 +37,11 @@ Play: **https://andrewnakas.github.io/dkr-cleanroom/** (repo: andrewnakas/dkr-cl
 - **Voices: no TTS placeholders.** DKR's character "speech" samples are gibberish vocalisations (Whisper on the
   retail clips finds no consistent words - e.g. every `dean_*` "track name" is a mumble), so English TTS would
   be wrong. They stay resynthesised until the user records takes. Practice pack built (see morning list).
+- **In-race hang fixed (important)**: noise-detailed textures made deflate emit *stored* blocks, which retail
+  data never has; the game's inflater (src/gzip.c) assumes an empty bit buffer after aligning a stored block
+  and derails (hang / corruption). Our build of the asset tool never emits stored blocks now, and the
+  generator keeps every texture well compressible (`texcheck.py`; textures are inflated in place).
+  Builds published before 01:50 could hang in races.
 - Dev hook: `?script=` page sequencer (menu-aware via exported `dev_menu_id`), used for headless race tests.
 - Ports: 8731 dev (dirty, local only), 8732 clean.
 
