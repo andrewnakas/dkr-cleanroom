@@ -23,6 +23,9 @@ def main(tree, site):
     html = html.split("\n", 1)[1]  # drop the template comment
     html = (html.replace("{{TITLE}}", "Diddy Kong Racing (clean room)").replace("{{ABOUT}}", ABOUT)
             .replace("{{CONTROLS}}", CONTROLS).replace("{{SCRIPT}}", "dkr.js"))
+    # dev hook (inactive unless ?script= is given): see web/devscript.js
+    shutil.copy(os.path.join(HERE, "web", "devscript.js"), os.path.join(site, "devscript.js"))
+    html = html.replace("</body>", '<script src="devscript.js"></script>\n</body>')
     open(os.path.join(site, "index.html"), "w", encoding="utf-8", newline="\n").write(html)
     open(os.path.join(site, ".nojekyll"), "w").close()
     for f in sorted(os.listdir(site)):

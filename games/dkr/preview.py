@@ -14,7 +14,7 @@ def main(spec, out, filt=""):
     sizes = {k: (v["w"], v["h"]) for k, v in textures.items()}
     items = [(r, i) for r, i in fonts.font_textures(kept, sizes).items()]
     items += [(r, i) for r, i, _ in drawn.all_overrides(kept, textures)]
-    items += [(r, i) for r, i, _ in faces.all_overrides(textures)]
+    items += [(r, i) for r, i, _ in faces.all_overrides(textures, kept)]
     n = 0
     for rel, img in items:
         if filt and filt not in rel:

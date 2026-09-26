@@ -163,3 +163,32 @@ def briefs(textures):
             if rel in textures:
                 out[rel] = weapon(kind, lvl)
     return out
+
+
+def _balloon(c, dark):
+    return {"base": {"grad": [c, dark]},
+            "ops": [{"sphere": [0.5, 0.36, 0.46, 0.36], "c": c}, {"hl": [0.36, 0.2, 0.08]},
+                    {"hl": [0.3, 0.3, 0.035]}, {"outline": 1, "c": [40, 30, 30]}]}
+
+
+def sprite_briefs():
+    """Multi-piece world sprites (pickups) painted over their kept silhouettes."""
+    O = "sprites/objects/"
+    return {
+        O + "balloon_boost_v79.json": _balloon([80, 140, 255], [20, 50, 170]),
+        O + "balloon_missle_v79.json": _balloon([255, 70, 60], [160, 10, 10]),
+        O + "balloon_magnet_v79.json": _balloon([200, 110, 255], [90, 30, 160]),
+        O + "balloon_shield_v79.json": _balloon([255, 230, 70], [200, 140, 10]),
+        O + "balloon_trap_v79.json": _balloon([90, 230, 90], [20, 130, 40]),
+        O + "balloon_gold_v79.json": _balloon([255, 215, 60], [190, 120, 10]),
+        O + "balloon_silver_v79.json": _balloon([235, 240, 250], [140, 150, 170]),
+        O + "banana_v79.json": {"base": {"grad": [[255, 245, 110], [230, 180, 20]]},
+                                "ops": [{"outline": 1, "c": [110, 70, 0]}]},
+        O + "silver_coin_v79.json": {"base": {"grad": [[250, 250, 255], [150, 160, 180]]},
+                                     "ops": [{"ring": [0.5, 0.5, 0.3, 0.3], "w": 0.06, "c": [120, 130, 150]},
+                                             {"hl": [0.38, 0.32, 0.07]}, {"outline": 1, "c": [70, 75, 90]}]},
+        O + "egg.json": {"base": {"grad": [[255, 252, 240], [220, 200, 160]]},
+                         "ops": [{"hl": [0.38, 0.3, 0.08]}, {"outline": 1, "c": [120, 90, 60]}]},
+        O + "bomb.json": {"base": {"grad": [[90, 90, 110], [20, 20, 30]]},
+                          "ops": [{"hl": [0.36, 0.34, 0.07]}, {"outline": 1, "c": [0, 0, 0]}]},
+    }

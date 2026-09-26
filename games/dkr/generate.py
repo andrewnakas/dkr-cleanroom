@@ -17,7 +17,7 @@ import numpy as np
 from PIL import Image
 
 from cleanroom.decomp.gen import from_digest
-from games.dkr import audio_gen, fonts
+from games.dkr import audio_gen, fonts, materials
 
 VER = "us.v80"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -55,7 +55,7 @@ def overrides(spec, textures):
     except ImportError:
         pass
     from games.dkr import faces
-    for rel, img, tag in faces.all_overrides(textures):
+    for rel, img, tag in faces.all_overrides(textures, kept):
         out[rel] = (img, tag)
     return out
 
@@ -82,8 +82,12 @@ def main():
                 img, tag = ov[rel]
                 counts["texture " + tag] += 1
             else:
-                img = from_digest(rel, d).astype(np.float32)
-                counts["texture digest"] += 1
+                img = materials.apply(rel, d)
+                if img is not None:
+                    counts["texture material"] += 1
+                else:
+                    img = from_digest(rel, d).astype(np.float32)
+                    counts["texture digest"] += 1
             save_png(os.path.join(dst, rel), img, d.get("mode", "RGBA"))
     if a.only in ("", "audio"):
         spec_audio = json.load(open(os.path.join(a.spec, "audio.json")))

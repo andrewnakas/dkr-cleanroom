@@ -66,7 +66,7 @@ def make_web_makefile(tree):
     src = src.replace("BASE_CFLAGS := -m$(BITS) $(OPT)", "BASE_CFLAGS := $(OPT)")
     src = src.replace("OPT      ?= -Os", "OPT      ?= -O2")
     src = src.replace("\tlinux/gfx.c \\\n", "\tweb/gfx_web.c \\\n")
-    src = src.replace("\tlinux/input.c \\\n", "\tweb/input_web.c \\\n")
+    src = src.replace("\tlinux/input.c \\\n", "\tweb/input_web.c \\\n\tweb/dev_web.c \\\n")
     src = src.replace("LIBS := -lm -lSDL2 -lGL $(SAN_FLAGS)",
                       "LIBS := -lm -sUSE_SDL=2 -sMIN_WEBGL_VERSION=2 -sMAX_WEBGL_VERSION=2 -sASYNCIFY=1 "
                       "-sASYNCIFY_STACK_SIZE=65536 -sINITIAL_MEMORY=128MB -sALLOW_MEMORY_GROWTH=1 "

@@ -76,14 +76,46 @@ def render(rel, b, d):
     return img
 
 
-def all_overrides(textures):
-    from games.dkr import icons
+def render_sprite(frames, b, textures):
+    """Paint one brief over a multi-piece sprite: the pieces' kept alpha is
+    assembled on a shared canvas (sprite-x/y), painted once, then cut back."""
     out = []
-    from games.dkr import eyes
+    for pieces in frames:
+        pieces = [p for p in pieces if p["rel"] in textures]
+        if not pieces:
+            continue
+        x0 = min(p["x"] for p in pieces)
+        y0 = min(p["y"] for p in pieces)
+        W = max(p["x"] + p["w"] for p in pieces) - x0
+        H = max(p["y"] + p["h"] for p in pieces) - y0
+        alpha = np.zeros((H, W), np.float32)
+        for p in pieces:
+            d = textures[p["rel"]]
+            a = unpack_alpha2(d["alpha2"], d["w"], d["h"]) if "alpha2" in d else np.full((d["h"], d["w"]), 255.0)
+            sl = alpha[p["y"] - y0:p["y"] - y0 + d["h"], p["x"] - x0:p["x"] - x0 + d["w"]]
+            np.maximum(sl, a[:sl.shape[0], :sl.shape[1]], out=sl)
+        brief = {k: v for k, v in b.items() if k != "keep_alpha"}
+        img = facepaint.render(brief, W, H, alpha=alpha, seed=h32("sprite", pieces[0]["rel"]))
+        for p in pieces:
+            out.append((p["rel"], img[p["y"] - y0:p["y"] - y0 + p["h"], p["x"] - x0:p["x"] - x0 + p["w"]].copy()))
+    return out
+
+
+def all_overrides(textures, kept=None):
+    from games.dkr import eyes, icons
+    out = []
     allb = dict(icons.briefs(textures))
     allb.update(eyes.briefs(textures))
     allb.update(load())
     for rel, b in allb.items():
         if rel in textures:
             out.append((rel, render(rel, b, textures[rel]), "face brief"))
+    if kept:
+        from games.dkr import sprites as spr
+        sizes = {k: (v["w"], v["h"]) for k, v in textures.items()}
+        sp = spr.sprites(kept, sizes)
+        for srel, b in icons.sprite_briefs().items():
+            if srel in sp:
+                for rel, img in render_sprite(sp[srel], b, textures):
+                    out.append((rel, img, "sprite brief"))
     return out
