@@ -42,6 +42,10 @@ Play: **https://andrewnakas.github.io/dkr-cleanroom/** (repo: andrewnakas/dkr-cl
   and derails (hang / corruption). Our build of the asset tool never emits stored blocks now, and the
   generator keeps every texture well compressible (`texcheck.py`; textures are inflated in place).
   Builds published before 01:50 could hang in races.
+- **Headless testing**: long runs with SwiftShader (`--webgl`) stall in the GPU process when the machine is
+  loaded (retail dev build too); run race tests on the hardware GPU (omit `--webgl`): 0 underruns.
+  `ports/wasm/cdp_shot.py` takes CDP screenshots without the console transport.
+- Port hardening: the inflater's Huffman table buffer is 0x10000 instead of 0x2800 (gzip worst case).
 - Dev hook: `?script=` page sequencer (menu-aware via exported `dev_menu_id`), used for headless race tests.
 - Ports: 8731 dev (dirty, local only), 8732 clean.
 

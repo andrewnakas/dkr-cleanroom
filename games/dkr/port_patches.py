@@ -52,6 +52,10 @@ PATCHES = [
     ("linux/audio.c",
      "    sRingUsed += size;\n    SDL_UnlockAudioDevice(sAudioDev);\n}\n",
      "    sRingUsed += size;\n    SDL_UnlockAudioDevice(sAudioDev);\n    return 0;\n}\n"),
+    # The inflater's Huffman tables come from a 0x2800-byte bump buffer (1280 entries of 8 bytes).
+    # gzip's worst case needs more; retail streams never got there, regenerated assets can.
+    ("src/gzip.c", "gHuftTable = (huft *) mempool_alloc_safe(0x2800, COLOUR_TAG_BLACK);",
+     "gHuftTable = (huft *) mempool_alloc_safe(0x10000, COLOUR_TAG_BLACK);"),
     # Deeper audio buffer: browser timers jitter more than a native sleep.
     ("linux/audio.c", "#define PC_AUDIO_TARGET_FRAMES 3 ", "#define PC_AUDIO_TARGET_FRAMES 5 "),
 ]

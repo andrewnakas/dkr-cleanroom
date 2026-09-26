@@ -36,7 +36,7 @@ CLASSES = [
 MENU = {"track_select_bg_dino_domain": "grain", "track_select_bg_dragon_forest": "grass",
         "track_select_bg_sherbet_island": "grain", "track_select_bg_snowflake_mountain": "snow",
         "track_select_bg_future_fun_land": "metal", "cobble_panel": "rock", "portal_panel": "water",
-        "wood_panel": "wood", "track_select_locked": "rock", "track_select_unlocked": "grass"}
+        "wood_panel": "wood", "track_select_locked": "wood", "track_select_unlocked": "grass"}
 
 
 def classify(rel):
