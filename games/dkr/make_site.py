@@ -21,13 +21,18 @@ def main(tree, site):
         shutil.copy(os.path.join(b, f), os.path.join(site, f))
     html = open(os.path.join(ROOT, "ports", "web", "shell.html"), encoding="utf-8").read()
     html = html.split("\n", 1)[1]  # drop the template comment
-    html = (html.replace("{{TITLE}}", "Diddy Kong Racing (clean room)").replace("{{ABOUT}}", ABOUT)
+    html = (html.replace("{{TITLE}}", "Diddy Kong Racing (clean room)")
+            .replace("{{ABOUT}}", ABOUT + ' <a href="THIRD_PARTY.md">Third-party notices</a>.')
             .replace("{{CONTROLS}}", CONTROLS).replace("{{SCRIPT}}", "dkr.js"))
-    # dev hook (inactive unless ?script= is given): see web/devscript.js
-    # touch overlay for phones/tablets: web/touchpad.js
-    for js in ("devscript.js", "touchpad.js"):
-        shutil.copy(os.path.join(HERE, "web", js), os.path.join(site, js))
-    html = html.replace("</body>", '<script src="touchpad.js"></script>\n<script src="devscript.js"></script>\n</body>')
+    # touch overlay for phones/tablets: web/touchpad.js; third-party notices: web/THIRD_PARTY.md
+    for f in ("touchpad.js", "THIRD_PARTY.md"):
+        shutil.copy(os.path.join(HERE, "web", f), os.path.join(site, f))
+    tags = '<script src="touchpad.js"></script>\n'
+    # the ?script= dev hook (web/devscript.js) is for local headless tests only: never in a published site
+    if os.environ.get("DKR_DEV_HOOK") == "1":
+        shutil.copy(os.path.join(HERE, "web", "devscript.js"), os.path.join(site, "devscript.js"))
+        tags += '<script src="devscript.js"></script>\n'
+    html = html.replace("</body>", tags + "</body>")
     html = html.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                         '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, '
                         'user-scalable=no, viewport-fit=cover">\n<meta name="apple-mobile-web-app-capable" content="yes">\n'
